@@ -27,10 +27,28 @@ const roleSchemas = {
   }),
 };
 
+type IndividualData = {
+  username: string;
+  email: string;
+  password: string;
+};
+
+type AdminData = {
+  email: string;
+  password: string;
+  adminCode: string;
+};
+
+type OrgData = {
+  email: string;
+  password: string;
+  orgName: string;
+  website?: string | undefined;
+};
+
 export default function RegisterPage() {
-  const handleSubmit = (data: any) => {
+  const handleSubmit = (data: IndividualData | AdminData | OrgData) => {
     console.log("Registration data:", data);
-    // Handle submission
   };
 
   return (

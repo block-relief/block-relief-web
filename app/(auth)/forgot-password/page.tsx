@@ -72,7 +72,7 @@ export default function ForgotPasswordPage() {
         ) : (
           <div className="text-center space-y-4">
             <p className="text-foreground">
-              We've sent password reset instructions to your email.
+              {`We've sent password reset instructions to your email.`}
             </p>
             <Link
               href="/login"

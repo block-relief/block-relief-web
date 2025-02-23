@@ -9,6 +9,7 @@ import {
   FieldErrors,
   FieldErrorsImpl,
   Merge,
+  Path,
 } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ZodType } from "zod";
@@ -47,9 +48,9 @@ export function Form<T extends FieldValues>({
 
 type InputProps<T extends FieldValues> = {
   register: UseFormRegister<T>;
-  error?: FieldError | Merge<FieldError, FieldErrorsImpl<any>>;
+  error?: FieldError | Merge<FieldError, FieldErrorsImpl>;
   label: string;
-  name: keyof T;
+  name: Path<T>;
 } & React.InputHTMLAttributes<HTMLInputElement>;
 
 export function EmailInput<T extends FieldValues>({
@@ -71,7 +72,7 @@ export function EmailInput<T extends FieldValues>({
         className={`w-full px-3 py-2 border rounded-md ${
           error ? "border-destructive" : "border-input"
         } focus:ring-2 focus:ring-primary`}
-        {...register(name as any)}
+        {...register(name)}
         {...props}
       />
       {error && (
@@ -117,7 +118,7 @@ export function PasswordInput<T extends FieldValues>({
           className={`w-full px-3 py-2 border rounded-md pr-10 ${
             error ? "border-destructive" : "border-input"
           } focus:ring-2 focus:ring-primary`}
-          {...register(name as any, {
+          {...register(name, {
             onChange: (e: React.ChangeEvent<HTMLInputElement>) =>
               setPassword(e.target.value),
           })}

@@ -1,5 +1,6 @@
 "use client";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { Suspense } from "react";
 import { ToastContainer } from "react-toastify";
 
 export default function AuthLayout({
@@ -11,11 +12,13 @@ export default function AuthLayout({
   return (
     <QueryClientProvider client={queryClient}>
       <ToastContainer />
-      <main>
-        <div className="min-h-screen flex items-center justify-center bg-muted p-4">
-          {children}
-        </div>
-      </main>
+      <Suspense>
+        <main>
+          <div className="min-h-screen flex items-center justify-center bg-muted p-4">
+            {children}
+          </div>
+        </main>
+      </Suspense>
     </QueryClientProvider>
   );
 }

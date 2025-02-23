@@ -10,6 +10,7 @@ import { Form } from "@/components/custom/logins";
 import { PasswordInput } from "@/components/custom/logins";
 import { z } from "zod";
 import { validateResetToken, resetPassword, TokenStatus } from "@/api/auth";
+import { toast } from "react-toastify";
 
 const resetSchema = z
   .object({
@@ -41,17 +42,19 @@ export default function ResetPasswordPage() {
     enabled: !!token,
   });
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: { password: string }) => {
     setIsSubmitting(true);
-    try {
-      const { result, error } = await resetPassword(token, data.password);
-      if (error) throw error;
-      setIsSubmitted(true);
-    } catch (error) {
-      console.error("Reset failed:", error);
-    } finally {
-      setIsSubmitting(false);
-    }
+    setIsSubmitting(true);
+    await resetPassword(token, data.password)
+      .then((val) => {
+        if (val.error || !val.result) {
+          setIsSubmitted(false);
+          toast.error(val.error || "Unknown error");
+        } else {
+          setIsSubmitted(true);
+        }
+      })
+      .finally(() => setIsSubmitting(false));
   };
 
   if (!token) {
