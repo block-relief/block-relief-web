@@ -37,6 +37,9 @@ class ApiClient {
       const response: AxiosResponse<T> = await this.instance.get(url, {
         params: query,
       });
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error("An error occurred");
+      }
       return { result: response.data, error: null };
     } catch (error) {
       return this.handleError(error);
@@ -49,6 +52,9 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     try {
       const response: AxiosResponse<T> = await this.instance.post(url, data);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error("An error occurred");
+      }
       return { result: response.data, error: null };
     } catch (error) {
       return this.handleError(error);
@@ -61,6 +67,9 @@ class ApiClient {
   ): Promise<ApiResponse<T>> {
     try {
       const response: AxiosResponse<T> = await this.instance.put(url, data);
+      if (response.status < 200 || response.status >= 300) {
+        throw new Error("An error occurred");
+      }
       return { result: response.data, error: null };
     } catch (error) {
       return this.handleError(error);
