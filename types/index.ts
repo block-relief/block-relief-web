@@ -1,4 +1,4 @@
 export type LocalUser = {
-    id: string;
-    username: string;
-}
+  id: string;
+  username: string;
+};
