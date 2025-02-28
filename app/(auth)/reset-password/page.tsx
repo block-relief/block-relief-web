@@ -1,6 +1,5 @@
 "use client";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
 import { useSearchParams } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -11,6 +10,7 @@ import { PasswordInput } from "@/components/custom/logins";
 import { z } from "zod";
 import { validateResetToken, resetPassword, TokenStatus } from "@/api/auth";
 import { toast } from "react-toastify";
+import useApiQuery from "@/hooks/useApiQuery";
 
 const resetSchema = z
   .object({
@@ -32,10 +32,11 @@ export default function ResetPasswordPage() {
   const token = searchParams.get("token") || "";
 
   const {
-    data: tokenValidationResult,
+    result: tokenValidationResult,
     isLoading: isValidating,
+    error: tokenError,
     refetch,
-  } = useQuery({
+  } = useApiQuery({
     queryKey: ["validateToken", token],
     queryFn: () => validateResetToken(token),
     retry: false,
@@ -44,12 +45,11 @@ export default function ResetPasswordPage() {
 
   const handleSubmit = async (data: { password: string }) => {
     setIsSubmitting(true);
-    setIsSubmitting(true);
     await resetPassword(token, data.password)
       .then((val) => {
         if (val.error || !val.result) {
           setIsSubmitted(false);
-          toast.error(val.error || "Unknown error");
+          toast.error(val.error?.message || "Unknown error");
         } else {
           setIsSubmitted(true);
         }
@@ -73,16 +73,16 @@ export default function ResetPasswordPage() {
     );
   }
 
-  if (isValidating || !tokenValidationResult) {
+  if (isValidating) {
     return <Loader2 className="h-8 w-8 animate-spin" />;
   }
 
-  if (tokenValidationResult.error || !tokenValidationResult.result) {
+  if (tokenError || !tokenValidationResult) {
     return (
       <Card className="w-full max-w-md bg-background shadow-lg hover:shadow-xl transition-all">
         <CardContent className="p-6 text-center">
           <p className="text-destructive">
-            {tokenValidationResult.error || "Something went wrong"}
+            {tokenError?.message || "Something went wrong"}
           </p>
           <p
             className="text-primary hover:underline mt-4 block cursor-pointer"
@@ -95,9 +95,7 @@ export default function ResetPasswordPage() {
     );
   }
 
-  const tokenStatus = tokenValidationResult.result.status;
-
-  if (tokenStatus === TokenStatus.Expired) {
+  if (tokenValidationResult.status === TokenStatus.Expired) {
     return (
       <Card className="w-full max-w-md bg-background shadow-lg hover:shadow-xl transition-all">
         <CardContent className="p-6 text-center">
@@ -113,7 +111,7 @@ export default function ResetPasswordPage() {
     );
   }
 
-  if (tokenStatus === TokenStatus.Invalid) {
+  if (tokenValidationResult.status === TokenStatus.Invalid) {
     return (
       <Card className="w-full max-w-md bg-background shadow-lg hover:shadow-xl transition-all">
         <CardContent className="p-6 text-center">
