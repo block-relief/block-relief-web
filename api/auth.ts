@@ -19,6 +19,10 @@ export async function forgotPassword(email: string): Promise<ApiResponse<{}>> {
   return Api.post("/auth/forgot-password", { email });
 }
 
+export async function signIn(username: string, password: string) {
+  return Api.post("/auth/login", { username, password });
+}
+
 export enum TokenStatus {
   Expired = "Expired",
   Invalid = "Invalid",

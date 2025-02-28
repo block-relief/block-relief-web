@@ -24,7 +24,7 @@ export default function ForgotPasswordPage() {
       .then((res) => {
         if (res.error || !res.result) {
           setIsSubmitted(false);
-          toast.error(res.error || "Unknown error");
+          toast.error(res.error?.message || "Unknown error");
         } else {
           setIsSubmitted(true);
         }

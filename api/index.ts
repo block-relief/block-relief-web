@@ -1,10 +1,9 @@
 import axios, { AxiosError, AxiosInstance, AxiosResponse } from "axios";
 import config from "../config";
-import { redirect } from "next/navigation";
 
 export interface ApiResponse<T> {
   result: T | null;
-  error: string | null;
+  error: Error | null;
 }
 
 class ApiClient {
@@ -22,7 +21,8 @@ class ApiClient {
       (response) => response,
       (error: AxiosError) => {
         if (error.response?.status === 401) {
-          redirect("/auth/login");
+          setReturnTo();
+          window.location.href = "/login";
         }
         return Promise.reject(error);
       },
@@ -83,16 +83,35 @@ class ApiClient {
     };
   }
 
-  private resolveAxiosError(error: unknown, defaultMsg?: string): string {
+  private resolveAxiosError(error: unknown, defaultMsg?: string): Error {
     const axiosError = error as AxiosError<{ error?: string; msg?: string }>;
-    return (
+    const message =
       axiosError?.response?.data?.error ??
       axiosError?.response?.data?.msg ??
       defaultMsg ??
-      "An error occurred"
-    );
+      "An error occurred";
+    return new Error(message);
   }
 }
+
+/**
+ * Get the returnTo path from sessionStorage
+ * @returns string | null
+ * @note This function will remove the returnTo path from sessionStorage after reading it
+ */
+export const getReturnTo = (): string | null => {
+  const returnTo = window.sessionStorage.getItem("returnTo");
+  window.sessionStorage.removeItem("returnTo");
+  return returnTo;
+};
+
+/**
+ * Set the returnTo path in sessionStorage
+ * @note When calling this function without any arguments, it will set the returnTo path to the current url path
+ */
+export const setReturnTo = (path = window.location.pathname) => {
+  window.sessionStorage.setItem("returnTo", path);
+};
 
 const axiosInstance = axios.create({
   baseURL: config.apps.core,
