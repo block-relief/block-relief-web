@@ -11,13 +11,15 @@
     --card-foreground: 240 10% 3.9%;
     --popover: 0 0% 100%;
     --popover-foreground: 240 10% 3.9%;
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
+    --primary: 150 100% 98.82%;
+    --primary-foreground: 154.29 38.89% 7.06%;
+    --secondary: 155.62 100% 93.73%;
+    --secondary-foreground: 176 11.45% 25.69%;
     --muted: 240 4.8% 95.9%;
     --muted-foreground: 240 3.8% 46.1%;
-    --accent: 240 4.8% 95.9%;
+    --accent-1: 153 48% 47%;
+    --accent-2: 160 84% 67%;
+    --accent-3: 175 48% 47%;
     --accent-foreground: 240 5.9% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
@@ -32,7 +34,7 @@
     --radius: 0.5rem;
   }
 
-  @media (prefers-color-scheme: dark) {
+  /* @media (prefers-color-scheme: dark) {
     :root {
       --background: 240 10% 3.9%;
       --foreground: 0 0% 98%;
@@ -59,7 +61,7 @@
       --chart-4: 280 65% 60%;
       --chart-5: 340 75% 55%;
     }
-  }
+  } */
 
   body {
     @apply bg-background text-foreground;
@@ -76,6 +78,10 @@
 
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
+}
+
+.home-gradient {
+  background: radial-gradient(circle at bottom left, #1c2e1e 0%, #0d1210 80%);
 }
 
 @layer base {
