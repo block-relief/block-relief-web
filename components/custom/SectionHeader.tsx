@@ -10,7 +10,7 @@ export default function SectionHeader({
   description,
 }: SectionHeaderProps) {
   return (
-    <div className="p-2.5 flex flex-col justify-between w-full sm:w-[297px] h-[340px]">
+    <div className="p-2.5 flex flex-col justify-between w-full sm:w-[297px] h-[340px] flex-shrink-0">
       <p className="font-normal text-base text-accent-1 text-left font-plusJakartaSans">
         {title}
       </p>

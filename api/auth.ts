@@ -1,11 +1,25 @@
 import { LocalUser } from "@/types";
 import Api, { ApiResponse } from ".";
 
-export async function login(
-  username: string,
-  password: string,
-): Promise<ApiResponse<LocalUser>> {
-  return Api.post("/auth/login", { username, password });
+export async function login(logins: {
+  email: string;
+  password: string;
+}): Promise<ApiResponse<LocalUser>> {
+  return Api.post("/auth/login", logins);
+}
+
+export async function logout(): Promise<ApiResponse<{}>> {
+  return Api.post("/auth/logout", {});
+}
+
+export async function signup(newUser: {
+  email: string;
+  password: string;
+  firstname: string;
+  lastname: string;
+  role: string;
+}): Promise<ApiResponse<LocalUser>> {
+  return Api.post("/auth/signup", newUser);
 }
 
 export async function resetPassword(
@@ -17,10 +31,6 @@ export async function resetPassword(
 
 export async function forgotPassword(email: string): Promise<ApiResponse<{}>> {
   return Api.post("/auth/forgot-password", { email });
-}
-
-export async function signIn(username: string, password: string) {
-  return Api.post("/auth/login", { username, password });
 }
 
 export enum TokenStatus {

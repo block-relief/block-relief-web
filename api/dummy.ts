@@ -1,4 +1,4 @@
-const TeamMembers = [
+export const TeamMembers = [
   {
     id: 1,
     fullname: "Tom Hanks",
@@ -21,17 +21,17 @@ const TeamMembers = [
     id: 4,
     fullname: "Tom Holland",
     role: "Tester",
-    photo_url: "/demo/profile_4.png",
+    photo_url: "/demo/profile_2.png",
   },
   {
     id: 5,
     fullname: "Tom Felton",
     role: "Manager",
-    photo_url: "/demo/profile_5.png",
+    photo_url: "/demo/profile_1.png",
   },
 ];
 
-const Features = [
+export const Features = [
   {
     title: "Donors",
     description:
@@ -51,11 +51,11 @@ const Features = [
   {
     title: "Community",
     description: "Join a community, share stories, and inspire others.",
-    icon: "/demo/feature_4.png",
+    icon: "/demo/feature_2.png",
   },
   {
     title: "Dashboard",
     description: "Manage campaigns, view analytics, and engage with donors.",
-    icon: "/demo/feature_5.png",
+    icon: "/demo/feature_1.png",
   },
 ];
