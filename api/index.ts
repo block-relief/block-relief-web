@@ -38,7 +38,7 @@ class ApiClient {
         params: query,
       });
       if (response.status < 200 || response.status >= 300) {
-        throw new Error("An error occurred");
+        throw new Error((response.data as string) || "An error occurred");
       }
       return { result: response.data, error: null };
     } catch (error) {

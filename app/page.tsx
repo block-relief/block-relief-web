@@ -1,6 +1,8 @@
 import PageGradient from "@/components/custom/HeroGradient";
+import FeaturesSection from "@/components/sections/Features";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
+import TeamSection from "@/components/sections/Team";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -12,7 +14,7 @@ export default function Home() {
       <Header button="signup" />
       <main className="">
         {/* Hero Section */}
-        <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px]">
+        <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
           <PageGradient />
           <div className="mt-[69px] w-full h-full">
             <p className="text-[56px] leading-[65px] font-normal font-alata w-[453px]">
@@ -24,7 +26,7 @@ export default function Home() {
             </p>
             <div className="ml-3 mt-10 flex gap-5 items-center">
               <Link href="/donate">
-                <span className="text-base font-plusJakartaSans font-semibold px-6 py-4 border rounded">
+                <span className="text-base font-plusJakartaSans font-semibold px-8 py-4 border rounded">
                   Donate Today
                 </span>
               </Link>
@@ -49,6 +51,12 @@ export default function Home() {
           </div>
         </div>
         {/* Features Section */}
+
+        <FeaturesSection />
+
+        {/* Team Section */}
+
+        <TeamSection />
       </main>
       <Footer />
     </div>

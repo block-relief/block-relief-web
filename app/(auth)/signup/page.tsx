@@ -1,15 +1,15 @@
-import ResetPasswordForm from "@/components/forms/PasswordResetForm";
+import SignupForm from "@/components/forms/SignupForm";
 import Link from "next/link";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   return (
     <>
       <div className="h-full flex flex-col items-start justify-center gap-3 ml-12 mt-6">
         <p className="text-[56px] leading-[65px] font-normal font-alata w-[453px]">
-          Reset Password
+          Get Started
         </p>
         <p className="text-base font-plusJakartaSans w-[462px] ml-1">
-          Setup a new password for your account
+          Sign up to an account and start making impact .
         </p>
         <Link
           href="./login"
@@ -19,7 +19,7 @@ export default function LoginPage() {
         </Link>
       </div>
       <div className="h-full lg:col-span-2 flex items-center justify-center mx-12 p-8">
-        <ResetPasswordForm />
+        <SignupForm />
       </div>
     </>
   );
