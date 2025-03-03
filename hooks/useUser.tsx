@@ -1,4 +1,5 @@
 "use client";
+import { LocalUser } from "@/types";
 import useApiQuery from "./useApiQuery";
 import { me } from "@/api/auth";
 
@@ -8,13 +9,24 @@ import { me } from "@/api/auth";
  * Use this hook outside of the AuthContextProvider to check login status.
  * For managing authentication sessions (login/logout), use the `useAuth` hook within the AuthContextProvider.
  *
- * @returns {Object} An object containing:
+ * @returns {{
+ *   user: LocalUser | null,
+ *   isLoading: boolean,
+ *   error: Error | undefined,
+ *   reload: () => void
+ * }} An object containing:
  * - `user` (LocalUser | null): The logged-in user or null if not logged in.
  * - `loading` (boolean): Indicates if the authentication check is in progress.
- * - `error` (Error | null): Any error encountered during the authentication check.
- * - `refetch` (Function): A function to manually refetch the authentication status.
+ * - `error` (Error | undefined): Any error encountered during the authentication check.
+ * - `reload` (Function): A function to manually refetch the authentication status.
  */
-export default function useUser() {
+
+export default function useUser(): {
+  user: LocalUser | null;
+  isLoading: boolean;
+  error: Error | undefined;
+  reload: () => void;
+} {
   const { result, isLoading, error, refetch } = useApiQuery({
     queryKey: ["me", Math.random()],
     queryFn: () => me(),
@@ -25,5 +37,5 @@ export default function useUser() {
     refetch();
   };
 
-  return { user: result?.user || null, loading: !isLoading, error, reload };
+  return { user: result?.user || null, isLoading, error, reload };
 }

@@ -1,10 +1,13 @@
+"use client";
 import PageGradient from "@/components/custom/HeroGradient";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
 export default function NotFoundPage() {
+  const queryClient = new QueryClient();
   return (
-    <>
+    <QueryClientProvider client={queryClient}>
       <Header />
       <main className="min-h-screen flex items-center justify-center">
         <div className="relative w-full h-auto lg:h-[645px] grid grid-cols-1 lg:grid-cols-2 gap-12 text-primary">
@@ -21,6 +24,6 @@ export default function NotFoundPage() {
         </div>
       </main>
       <Footer />
-    </>
+    </QueryClientProvider>
   );
 }

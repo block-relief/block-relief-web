@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="">
       {/* Gradient Background here */}
-      <Header button="signup" />
+      <Header />
       <main className="">
         {/* Hero Section */}
         <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
