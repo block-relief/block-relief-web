@@ -2,6 +2,8 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ToastContainer } from "react-toastify";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+import { Suspense } from "react";
+import { AuthContextProvider } from "@/hooks/AuthContext";
 
 export default function RootLayout({
   children,
@@ -13,7 +15,11 @@ export default function RootLayout({
     <QueryClientProvider client={queryClient}>
       <ToastContainer />
       <NuqsAdapter>
-        <main>{children}</main>
+        <Suspense>
+          <AuthContextProvider>
+            <main>{children}</main>
+          </AuthContextProvider>
+        </Suspense>
       </NuqsAdapter>
     </QueryClientProvider>
   );

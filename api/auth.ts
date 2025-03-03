@@ -1,6 +1,10 @@
 import { LocalUser } from "@/types";
 import Api, { ApiResponse } from ".";
 
+export async function me(): Promise<ApiResponse<{ user: LocalUser | null }>> {
+  return Api.get("/auth/me");
+}
+
 export async function login(logins: {
   email: string;
   password: string;

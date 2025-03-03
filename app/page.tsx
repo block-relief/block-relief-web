@@ -32,7 +32,7 @@ export default function Home() {
               </Link>
               <div className="flex items-center gap-3 w-[206px] px-2.5 py-2">
                 <MoveRight className="" />
-                <Link href="/about">
+                <Link href="/dashboard">
                   <span className="text-base font-plusJakartaSans font-semibold">
                     Get Involved
                   </span>
