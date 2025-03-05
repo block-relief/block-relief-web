@@ -3,15 +3,6 @@
 import { locationStats } from "@/api/dummy";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import useApiQuery from "@/hooks/useApiQuery";
-import {
-  BarChart,
-  Bar,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer,
-  CartesianGrid,
-} from "recharts";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ArrowRightIcon, ChartPieIcon } from "lucide-react";
 import Image from "next/image";
@@ -61,28 +52,6 @@ export default function LocationStats() {
         </CardTitle>
       </CardHeader>
       <CardContent className="flex flex-col gap-4">
-        {/* Bar Chart */}
-        <ResponsiveContainer width="100%" height={300}>
-          <BarChart
-            data={topCountries}
-            layout="vertical"
-            margin={{ left: 50, right: 50, top: 20, bottom: 20 }}
-          >
-            <CartesianGrid strokeDasharray="3 3" />
-            <XAxis
-              type="number"
-              tickFormatter={(value) => formatUSD(Number(value))}
-            />
-            <YAxis type="category" dataKey="country" width={80} />
-            <Tooltip formatter={(value) => formatUSD(Number(value))} />
-            <Bar
-              dataKey="totalDonations"
-              fill="#34d399"
-              radius={[4, 4, 4, 4]}
-            />
-          </BarChart>
-        </ResponsiveContainer>
-
         {/* Custom Legend */}
         <div className="grid grid-cols-[repeat(auto-fit,_minmax(96px,_1fr))] gap-x-2 gap-y-4">
           {topCountries.map((stat, idx) => (
