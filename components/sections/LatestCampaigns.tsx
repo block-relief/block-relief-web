@@ -40,12 +40,12 @@ export default function LatestCampaigns() {
   const data = result.slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-4 w-full h-[536px]">
+    <div className="flex flex-col gap-4 w-full h-auto">
       <DashboardSectionHeader
         title="Latest Campaigns"
         pageUrl="/campaigns/latest"
       />
-      <div className="w-full h-full grid grid-cols-3 gap-8">
+      <div className="w-full h-full grid lg:grid-cols-2 2xl:grid-cols-3 gap-8">
         {data.map((campaign, index) => (
           <CampaignCard key={index} campaign={campaign} />
         ))}
