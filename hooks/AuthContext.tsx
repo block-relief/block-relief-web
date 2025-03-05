@@ -1,64 +1,54 @@
 "use client";
 import React, {
   createContext,
-  useState,
-  useEffect,
   useContext,
   PropsWithChildren,
+  useEffect,
 } from "react";
 import { LocalUser } from "@/types";
-import { me, logout as apiLogout } from "@/api/auth";
-import { ApiResponse } from "@/api";
+import { me } from "@/api/dummy";
+import useApiQuery from "./useApiQuery";
+import { setReturnTo } from "@/api";
 
 interface AuthContextType {
   user: LocalUser | null;
-  login: (user: UserResponseNonNullable) => void;
-  logout: () => void;
-  loading: boolean;
-  error: Error | null;
+  isLoading: boolean;
+  error: Error | undefined;
   reload: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-type UserResponse = ApiResponse<{ user: LocalUser | null }>;
-type UserResponseNonNullable = ApiResponse<{ user: LocalUser }>;
-
-export const AuthContextProvider: React.FC<PropsWithChildren> = ({
+export const AuthContextProvider = ({
   children,
-}) => {
-  const [response, setResponse] = useState<UserResponse | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  const login = (user: UserResponseNonNullable) => {
-    setResponse(user);
-  };
-
-  const reload = () => {
-    setLoading(true);
-    me()
-      .then((res) => setResponse(res || null))
-      .finally(() => setLoading(false));
-  };
+  enforceLogin,
+}: PropsWithChildren<{ enforceLogin?: boolean }>) => {
+  const {
+    result: user,
+    error,
+    isLoading,
+    refetch,
+  } = useApiQuery({
+    queryKey: ["me"],
+    queryFn: () => me(),
+    retry: 1,
+  });
 
   useEffect(() => {
-    reload();
-  }, []);
+    if (enforceLogin && !isLoading && !user?.user) {
+      setReturnTo();
+      window.location.href = "/login";
+    }
+  }, [enforceLogin, isLoading, user]);
 
-  const logout = () => {
-    setLoading(true);
-    apiLogout()
-      .then(() => setResponse(null))
-      .catch(console.error)
-      .finally(() => setLoading(false));
+  const reload = () => {
+    refetch();
   };
 
   const value = {
-    user: response?.result?.user || null,
-    error: response?.error || null,
-    login,
-    logout,
-    loading,
+    user: user?.user || null,
+    error,
+    isLoading,
     reload,
   };
 

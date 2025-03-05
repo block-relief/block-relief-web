@@ -12,7 +12,7 @@ export async function login(logins: {
   return Api.post("/auth/login", logins);
 }
 
-export async function logout(): Promise<ApiResponse<{}>> {
+export async function logout(): Promise<ApiResponse<string>> {
   return Api.post("/auth/logout", {});
 }
 
@@ -33,7 +33,9 @@ export async function resetPassword(
   return Api.post("/auth/reset-password", { token, password });
 }
 
-export async function forgotPassword(email: string): Promise<ApiResponse<{}>> {
+export async function forgotPassword(
+  email: string,
+): Promise<ApiResponse<string>> {
   return Api.post("/auth/forgot-password", { email });
 }
 

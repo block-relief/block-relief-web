@@ -10,8 +10,7 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="">
-      {/* Gradient Background here */}
-      <Header button="signup" />
+      <Header />
       <main className="">
         {/* Hero Section */}
         <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
@@ -25,14 +24,14 @@ export default function Home() {
               platform
             </p>
             <div className="ml-3 mt-10 flex gap-5 items-center">
-              <Link href="/donate">
+              <Link href="/overview/donate">
                 <span className="text-base font-plusJakartaSans font-semibold px-8 py-4 border rounded">
                   Donate Today
                 </span>
               </Link>
               <div className="flex items-center gap-3 w-[206px] px-2.5 py-2">
                 <MoveRight className="" />
-                <Link href="/dashboard">
+                <Link href="/overview">
                   <span className="text-base font-plusJakartaSans font-semibold">
                     Get Involved
                   </span>
