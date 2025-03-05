@@ -4,19 +4,19 @@ interface TeamMemberCardProps {
   member: {
     id: number;
     fullname: string;
-    photo_url: string;
+    photoUrl: string;
     role: string;
   };
 }
 
 export default function TeamMemberCard({
-  member: { fullname, photo_url, role },
+  member: { fullname, photoUrl, role },
 }: TeamMemberCardProps) {
   return (
     <div className="py-[30px] px-2.5 w-full sm:w-[303px] h-[370px] flex flex-col items-center text-center gap-2">
       <div className="w-[263px] h-[300px] flex items-center justify-center">
         <Image
-          src={photo_url}
+          src={photoUrl}
           alt={fullname}
           width={240}
           height={240}

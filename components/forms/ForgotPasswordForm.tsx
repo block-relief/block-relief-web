@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
-import { forgotPassword } from "@/api/auth";
+import { forgotPassword } from "@/api/dummy";
 import { toast } from "react-toastify";
 import { emailSchema } from "@/lib/schemas/inputs";
 

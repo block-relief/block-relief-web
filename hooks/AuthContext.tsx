@@ -1,8 +1,14 @@
 "use client";
-import React, { createContext, useContext, PropsWithChildren } from "react";
+import React, {
+  createContext,
+  useContext,
+  PropsWithChildren,
+  useEffect,
+} from "react";
 import { LocalUser } from "@/types";
-import { me } from "@/api/auth";
+import { me } from "@/api/dummy";
 import useApiQuery from "./useApiQuery";
+import { setReturnTo } from "@/api";
 
 interface AuthContextType {
   user: LocalUser | null;
@@ -13,19 +19,27 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-export const AuthContextProvider: React.FC<PropsWithChildren> = ({
+export const AuthContextProvider = ({
   children,
-}) => {
+  enforceLogin,
+}: PropsWithChildren<{ enforceLogin?: boolean }>) => {
   const {
     result: user,
     error,
     isLoading,
     refetch,
   } = useApiQuery({
-    queryKey: ["me", Math.random()],
+    queryKey: ["me"],
     queryFn: () => me(),
-    retry: false,
+    retry: 1,
   });
+
+  useEffect(() => {
+    if (enforceLogin && !isLoading && !user?.user) {
+      setReturnTo();
+      window.location.href = "/login";
+    }
+  }, [enforceLogin, isLoading, user]);
 
   const reload = () => {
     refetch();

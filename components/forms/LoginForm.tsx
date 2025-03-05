@@ -6,7 +6,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { User, EyeClosed, Eye, Lock, Loader2 } from "lucide-react";
 import Link from "next/link";
-import { login } from "@/api/auth";
+import { login } from "@/api/dummy";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { getReturnTo } from "@/api";
