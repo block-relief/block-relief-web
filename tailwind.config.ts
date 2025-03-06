@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-require-imports */
 import type { Config } from "tailwindcss";
 
 export default {
@@ -14,6 +15,11 @@ export default {
         geistSans: ["var(--font-geist-sans)", "sans-serif"],
         geistMono: ["var(--font-geist-mono)", "monospace"],
         alata: ["var(--font-alata)", "sans-serif"],
+      },
+      backgroundImage: {
+        gradient: "var(--gradient)",
+        noise: "var(--noise)",
+        noisyGradient: "var(--noisy-gradient)",
       },
       colors: {
         background: "hsl(var(--background))",

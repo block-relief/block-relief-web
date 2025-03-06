@@ -5,7 +5,7 @@ import React from "react";
 
 const Footer = () => {
   return (
-    <footer className="bg-blue-400 text-white px-12 py-[72px] h-auto sm:h-[278px]">
+    <footer className="bg-noisyGradient text-white px-12 py-[72px] h-auto sm:h-[278px]">
       <div className="container p-2.5 h-auto sm:h-[134px] flex justify-between items-center">
         <div className="text-left">
           <h1 className="text-[32px] font-semibold font-alata">DERA</h1>

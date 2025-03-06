@@ -1,4 +1,3 @@
-import PageGradient from "@/components/custom/HeroGradient";
 import FeaturesSection from "@/components/sections/Features";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
@@ -13,8 +12,7 @@ export default function Home() {
       <Header />
       <main className="">
         {/* Hero Section */}
-        <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
-          <PageGradient />
+        <div className="w-full bg-noisyGradient h-auto min-h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
           <div className="mt-[69px] w-full h-full">
             <p className="text-[56px] leading-[65px] font-normal font-alata w-[453px]">
               Empowering Relief to Empower Lives
@@ -39,7 +37,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative h-full w-full flex">
+          <div className="relative h-full w-full flex justify-end">
             <Image
               src="/hero.png"
               alt="Hero"

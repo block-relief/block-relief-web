@@ -40,6 +40,14 @@
     --sidebar-accent-foreground: 240 5.9% 10%;
     --sidebar-border: 220 13% 91%;
     --sidebar-ring: 217.2 91.2% 59.8%;
+
+    --gradient: linear-gradient(
+      to bottom,
+      rgb(11, 25, 19) 14%,
+      rgb(21, 50, 37) 100%
+    );
+    --noise: url("/noise.png");
+    --noisy-gradient: var(--noise), var(--gradient);
   }
 
   /* @media (prefers-color-scheme: dark) {
@@ -96,10 +104,6 @@
 
 .hidden-scrollbar::-webkit-scrollbar {
   display: none;
-}
-
-.home-gradient {
-  background: radial-gradient(circle at bottom left, #1c2e1e 0%, #0d1210 80%);
 }
 
 @layer base {

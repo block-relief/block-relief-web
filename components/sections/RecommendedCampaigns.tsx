@@ -44,7 +44,7 @@ export default function RecommendedCampaigns() {
   const data = result.slice(0, 3);
 
   return (
-    <div className="flex flex-col gap-4 w-full h-auto bg-slate-500">
+    <div className="flex flex-col gap-4 w-full h-auto">
       <DashboardSectionHeader
         title="Recommended Campaigns"
         pageUrl="/campaigns/recommended"
