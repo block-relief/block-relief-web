@@ -1,5 +1,4 @@
 "use client";
-import PageGradient from "@/components/custom/HeroGradient";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
 import { AuthContextProvider } from "@/hooks/AuthContext";
@@ -20,8 +19,7 @@ export default function AuthLayout({
         <AuthContextProvider>
           <Header />
           <main className="min-h-screen flex items-center justify-center">
-            <div className="relative w-full h-auto lg:h-[645px] grid grid-cols-1 lg:grid-cols-3 gap-12 text-primary">
-              <PageGradient />
+            <div className="w-full h-auto bg-noisyGradient lg:h-[645px] grid grid-cols-1 lg:grid-cols-3 gap-12 text-primary">
               {children}
             </div>
           </main>

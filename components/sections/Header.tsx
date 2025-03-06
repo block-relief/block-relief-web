@@ -1,10 +1,8 @@
 import Link from "next/link";
-import PageGradient from "../custom/HeroGradient";
 
 export default function Header() {
   return (
-    <header className="fixed inset-0 flex justify-between items-center h-[92px] w-full px-12 py-6 z-50">
-      <PageGradient />
+    <header className="fixed inset-0 bg-noise flex justify-between items-center h-[92px] w-full px-12 py-6 z-50">
       <Link href="/">
         <div className="text-primary text-xl font-semibold">DERA</div>
       </Link>
