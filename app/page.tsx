@@ -1,4 +1,3 @@
-import PageGradient from "@/components/custom/HeroGradient";
 import FeaturesSection from "@/components/sections/Features";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
@@ -10,12 +9,10 @@ import Link from "next/link";
 export default function Home() {
   return (
     <div className="">
-      {/* Gradient Background here */}
-      <Header button="signup" />
+      <Header />
       <main className="">
         {/* Hero Section */}
-        <div className="relative w-full h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
-          <PageGradient />
+        <div className="w-full bg-noisyGradient h-auto min-h-[645px] grid grid-cols-1 lg:grid-cols-2 px-12 pt-[92px] text-primary">
           <div className="mt-[69px] w-full h-full">
             <p className="text-[56px] leading-[65px] font-normal font-alata w-[453px]">
               Empowering Relief to Empower Lives
@@ -25,14 +22,14 @@ export default function Home() {
               platform
             </p>
             <div className="ml-3 mt-10 flex gap-5 items-center">
-              <Link href="/donate">
+              <Link href="/overview/donate">
                 <span className="text-base font-plusJakartaSans font-semibold px-8 py-4 border rounded">
                   Donate Today
                 </span>
               </Link>
               <div className="flex items-center gap-3 w-[206px] px-2.5 py-2">
                 <MoveRight className="" />
-                <Link href="/about">
+                <Link href="/overview">
                   <span className="text-base font-plusJakartaSans font-semibold">
                     Get Involved
                   </span>
@@ -40,7 +37,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="relative h-full w-full flex">
+          <div className="relative h-full w-full flex justify-end">
             <Image
               src="/hero.png"
               alt="Hero"

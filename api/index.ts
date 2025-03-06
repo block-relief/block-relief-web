@@ -121,10 +121,5 @@ const axiosInstance = axios.create({
   withCredentials: true,
 });
 
-export function getQueryStringFromUrl(url: string): string | null {
-  const [_, query] = url.split("?");
-  return query ?? null;
-}
-
 const Api = new ApiClient(axiosInstance);
 export default Api;
