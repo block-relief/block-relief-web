@@ -138,14 +138,6 @@ export const DummyApi = {
     };
   },
 
-  logout: async (): Promise<ApiResponse<string>> => {
-    await randomDelay();
-    return {
-      result: "Successfully logged out",
-      error: null,
-    };
-  },
-
   signup: async (newUser: {
     email: string;
     password: string;
