@@ -75,10 +75,6 @@ export async function login(logins: {
   return DummyApi.login(logins);
 }
 
-export async function logout(): Promise<ApiResponse<string>> {
-  return DummyApi.logout();
-}
-
 export async function signup(newUser: {
   email: string;
   password: string;

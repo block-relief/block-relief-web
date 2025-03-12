@@ -53,7 +53,8 @@ class ApiClient {
     try {
       const response: AxiosResponse<T> = await this.instance.post(url, data);
       if (response.status < 200 || response.status >= 300) {
-        throw new Error((response.data as string) || "An error occurred");
+        const errorResponse = response as AxiosResponse<{ error: string }>;
+        throw new Error(errorResponse.data.error || "An error occurred");
       }
       return { result: response.data, error: null };
     } catch (error) {
@@ -68,7 +69,8 @@ class ApiClient {
     try {
       const response: AxiosResponse<T> = await this.instance.put(url, data);
       if (response.status < 200 || response.status >= 300) {
-        throw new Error((response.data as string) || "An error occurred");
+        const errorResponse = response as AxiosResponse<{ error: string }>;
+        throw new Error(errorResponse.data.error || "An error occurred");
       }
       return { result: response.data, error: null };
     } catch (error) {
@@ -79,6 +81,11 @@ class ApiClient {
   async setToken(tokens: { access: string; refresh: string }): Promise<void> {
     window.localStorage.setItem("access", tokens.access);
     window.localStorage.setItem("refresh", tokens.refresh);
+  }
+
+  resetToken(): void {
+    window.localStorage.removeItem("access");
+    window.localStorage.removeItem("refresh");
   }
 
   private handleError<T>(error: unknown): ApiResponse<T> {

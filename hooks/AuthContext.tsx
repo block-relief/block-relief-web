@@ -7,10 +7,9 @@ import React, {
   useState,
 } from "react";
 import { LocalUser } from "@/types";
-import { me, logout as apiLogout } from "@/api/dummy";
+import { me } from "@/api/dummy";
 import useApiQuery from "./useApiQuery";
-import { setReturnTo } from "@/api";
-import { toast } from "react-toastify";
+import Api, { setReturnTo } from "@/api";
 import { useRouter } from "next/navigation";
 
 interface AuthContextType {
@@ -54,15 +53,9 @@ export const AuthContextProvider = ({
   const logout = async () => {
     if (user?.user) {
       setLogggingOut(true);
-      const response = await apiLogout();
-      if (response.result) {
-        await refetch();
-        router.push("/");
-      } else {
-        toast.error(
-          response.error?.message || "An error occurred while logging out",
-        );
-      }
+      Api.resetToken();
+      await refetch();
+      router.push("/");
       setLogggingOut(false);
     }
   };
