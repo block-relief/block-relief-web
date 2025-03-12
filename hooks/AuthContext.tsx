@@ -4,17 +4,21 @@ import React, {
   useContext,
   PropsWithChildren,
   useEffect,
+  useState,
 } from "react";
 import { LocalUser } from "@/types";
-import { me } from "@/api/dummy";
+import { me, logout as apiLogout } from "@/api/dummy";
 import useApiQuery from "./useApiQuery";
 import { setReturnTo } from "@/api";
+import { toast } from "react-toastify";
+import { useRouter } from "next/navigation";
 
 interface AuthContextType {
   user: LocalUser | null;
   isLoading: boolean;
   error: Error | undefined;
   reload: () => void;
+  logout: () => Promise<void>;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -33,16 +37,34 @@ export const AuthContextProvider = ({
     queryFn: () => me(),
     retry: 1,
   });
+  const [loggingOut, setLogggingOut] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
-    if (enforceLogin && !isLoading && !user?.user) {
+    if (!loggingOut && enforceLogin && !isLoading && !user?.user) {
       setReturnTo();
-      window.location.href = "/login";
+      router.push("/login");
     }
-  }, [enforceLogin, isLoading, user]);
+  }, [loggingOut, enforceLogin, isLoading, user, router]);
 
   const reload = () => {
     refetch();
+  };
+
+  const logout = async () => {
+    if (user?.user) {
+      setLogggingOut(true);
+      const response = await apiLogout();
+      if (response.result) {
+        await refetch();
+        router.push("/");
+      } else {
+        toast.error(
+          response.error?.message || "An error occurred while logging out",
+        );
+      }
+      setLogggingOut(false);
+    }
   };
 
   const value = {
@@ -50,6 +72,7 @@ export const AuthContextProvider = ({
     error,
     isLoading,
     reload,
+    logout,
   };
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

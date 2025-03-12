@@ -18,7 +18,7 @@ export default function AuthLayout({
       <Suspense>
         <AuthContextProvider>
           <Header />
-          <main className="min-h-screen flex items-center justify-center">
+          <main className="min-h-screen">
             <div className="w-full h-auto bg-noisyGradient lg:h-[645px] grid grid-cols-1 lg:grid-cols-3 gap-12 text-primary">
               {children}
             </div>

@@ -52,7 +52,7 @@ export default function DonationSummary() {
   ];
 
   return (
-    <div className="w-full grid grid-cols-3 gap-8 h-[120px]">
+    <div className="w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 min-h-[120px]">
       {data.map((item, index) => (
         <div
           key={index}
