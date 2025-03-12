@@ -1,15 +1,18 @@
 import { LocalUser } from "@/types";
 import { Skeleton } from "../ui/skeleton";
-import { Bell, Badge } from "lucide-react";
+import { Bell } from "lucide-react";
 
 export function NotificationsIcon({}: { user: LocalUser }) {
   // will handle if it should be belldot or bell based on user notifications
+
   return (
     <div className="relative">
-      <Bell className="h-5 w-5" />
-      <Badge className="absolute -top-1 -right-1 h-4 w-4 p-0 flex items-center justify-center text-[10px] rounded-full bg-emerald-500 text-white">
-        1
-      </Badge>
+      <Bell className="size-8" />
+      <div className="absolute bottom-[50%] left-[50%]">
+        <div className="flex items-center justify-center min-w-[2rem] min-h-[2rem] aspect-square px-1 text-xs font-bold text-primary bg-accent-1 rounded-full">
+          99+
+        </div>
+      </div>
     </div>
   );
 }
