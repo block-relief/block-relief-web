@@ -37,12 +37,12 @@ export default function OverviewHeader() {
   }
 
   return (
-    <header className="w-full h-[122px] bg-noisyGradient flex items-center justify-between px-12 py-4 border-b border-muted/50">
+    <header className="w-full h-[122px] text-primary bg-noisyGradient flex items-center justify-between px-12 py-4 border-b border-muted/50">
       {/* Left Section - Logo & search*/}
       <div className="flex w-auto gap-16 lg:gap-48 max-w-[72%] justify-between">
         <Link
           href="/"
-          className="h-[50px] w-full flex items-center text-2xl leading-[24px] font-bold tracking-tight text-primary"
+          className="h-[50px] w-full flex items-center text-2xl leading-[24px] font-bold tracking-tight"
         >
           DERA
         </Link>

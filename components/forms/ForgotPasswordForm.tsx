@@ -92,7 +92,7 @@ export default function ForgotPasswordForm() {
           </form>
         ) : (
           <div className="text-center space-y-4">
-            <p className="text-foreground">
+            <p className="text-primary">
               Password reset instructions have been sent to your email.
             </p>
             <Link

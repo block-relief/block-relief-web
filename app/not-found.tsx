@@ -5,7 +5,7 @@ export default function NotFoundPage() {
   return (
     <>
       <Header />
-      <main className="min-h-screen flex items-center justify-center">
+      <main className="min-h-screen">
         <div className="w-full h-auto bg-noisyGradient lg:h-[645px] grid grid-cols-1 lg:grid-cols-2 gap-12 text-primary">
           <div className="h-screen flex items-center justify-center">
             <div className="flex flex-col items-center justify-center gap-4">
