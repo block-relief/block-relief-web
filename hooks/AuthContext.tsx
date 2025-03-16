@@ -6,14 +6,14 @@ import React, {
   useEffect,
   useState,
 } from "react";
-import { LocalUser } from "@/types";
-import { me } from "@/api/dummy";
+import { User } from "@/types";
 import useApiQuery from "./useApiQuery";
 import Api, { setReturnTo } from "@/api";
 import { useRouter } from "next/navigation";
+import { me } from "@/api/dummy";
 
 interface AuthContextType {
-  user: LocalUser | null;
+  user: User | null;
   isLoading: boolean;
   error: Error | undefined;
   reload: () => void;
@@ -40,7 +40,7 @@ export const AuthContextProvider = ({
   const router = useRouter();
 
   useEffect(() => {
-    if (!loggingOut && enforceLogin && !isLoading && !user?.user) {
+    if (!loggingOut && enforceLogin && !isLoading && !user) {
       setReturnTo();
       router.push("/login");
     }
@@ -51,7 +51,7 @@ export const AuthContextProvider = ({
   };
 
   const logout = async () => {
-    if (user?.user) {
+    if (user) {
       setLogggingOut(true);
       Api.resetToken();
       await refetch();
@@ -61,7 +61,7 @@ export const AuthContextProvider = ({
   };
 
   const value = {
-    user: user?.user || null,
+    user: user || null,
     error,
     isLoading,
     reload,

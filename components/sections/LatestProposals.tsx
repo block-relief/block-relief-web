@@ -1,16 +1,16 @@
 "use client";
-import { latestCampaigns } from "@/api/dummy";
+import { latestProposals } from "@/api/dummy";
 import { useAuth } from "@/hooks/AuthContext";
 import useApiQuery from "@/hooks/useApiQuery";
 import DashboardSectionHeader from "../custom/DashboardSectionHeader";
 import { Skeleton } from "../ui/skeleton";
-import CampaignCard from "../custom/CampaignCard";
+import ProposalCard from "../custom/ProposalCard";
 
-export default function LatestCampaigns() {
+export default function LatestProposals() {
   const { user } = useAuth();
   const { result, isLoading } = useApiQuery({
-    queryKey: ["latest-campaigns"],
-    queryFn: async () => latestCampaigns(),
+    queryKey: ["latest-proposals"],
+    queryFn: async () => latestProposals(),
     retry: 3,
     enabled: !!user,
   });
@@ -27,8 +27,8 @@ export default function LatestCampaigns() {
     return (
       <div className="flex flex-col gap-4 w-full h-[536px]">
         <DashboardSectionHeader
-          title="Latest Campaigns"
-          pageUrl="/campaigns/latest"
+          title="Latest Proposals"
+          pageUrl="/proposals/latest"
         />
         <div className="w-full h-full flex items-center justify-center">
           <span>No data</span>
@@ -42,12 +42,12 @@ export default function LatestCampaigns() {
   return (
     <div className="flex flex-col gap-4 w-full h-auto">
       <DashboardSectionHeader
-        title="Latest Campaigns"
-        pageUrl="/campaigns/latest"
+        title="Latest Proposals"
+        pageUrl="/proposals/latest"
       />
       <div className="w-full h-full grid lg:grid-cols-2 2xl:grid-cols-3 gap-8">
-        {data.map((campaign, index) => (
-          <CampaignCard key={index} campaign={campaign} />
+        {data.map((proposal, index) => (
+          <ProposalCard key={index} proposal={proposal} />
         ))}
       </div>
     </div>

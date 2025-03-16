@@ -1,16 +1,16 @@
 "use client";
-import { recommendedCampaigns } from "@/api/dummy";
+import { recommendedProposals } from "@/api/dummy";
 import { useAuth } from "@/hooks/AuthContext";
 import useApiQuery from "@/hooks/useApiQuery";
 import DashboardSectionHeader from "../custom/DashboardSectionHeader";
 import { Skeleton } from "../ui/skeleton";
-import CampaignCard from "../custom/CampaignCard";
+import ProposalCard from "../custom/ProposalCard";
 
-export default function RecommendedCampaigns() {
+export default function RecommendedProposals() {
   const { user } = useAuth();
   const { result, isLoading } = useApiQuery({
     queryKey: ["recommended-campaigns"],
-    queryFn: async () => recommendedCampaigns(),
+    queryFn: async () => recommendedProposals(),
     retry: 3,
     enabled: !!user,
   });
@@ -50,8 +50,8 @@ export default function RecommendedCampaigns() {
         pageUrl="/campaigns/recommended"
       />
       <div className="w-full h-full grid lg:grid-cols-2 2xl:grid-cols-3 gap-8">
-        {data.map((campaign, index) => (
-          <CampaignCard key={index} campaign={campaign} />
+        {data.map((proposal, index) => (
+          <ProposalCard key={index} proposal={proposal} />
         ))}
       </div>
     </div>
