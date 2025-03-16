@@ -1,78 +1,53 @@
-export const TeamMembers = [
-  {
-    id: 1,
-    fullname: "Tom Hanks",
-    role: "Front-end Developer",
-    photoUrl: "/demo/profile_1.png",
-  },
-  {
-    id: 2,
-    fullname: "Tom Cruise",
-    role: "Back-end Developer",
-    photoUrl: "/demo/profile_2.png",
-  },
-  {
-    id: 3,
-    fullname: "Tom Hardy",
-    role: "Designer",
-    photoUrl: "/demo/profile_3.png",
-  },
-  {
-    id: 4,
-    fullname: "Tom Holland",
-    role: "Tester",
-    photoUrl: "/demo/profile_2.png",
-  },
-  {
-    id: 5,
-    fullname: "Tom Felton",
-    role: "Manager",
-    photoUrl: "/demo/profile_1.png",
-  },
-];
-
-export const Features = [
-  {
-    title: "Donors",
-    description:
-      "Find campaigns, donate (crypto/fiat), and watch impact unfold.",
-    icon: "/demo/feature_1.png",
-  },
-  {
-    title: "NGOs",
-    description: "Launch proposals, manage resources, and share success.",
-    icon: "/demo/feature_2.png",
-  },
-  {
-    title: "Victims",
-    description: "Share stories, receive donations, and express gratitude.",
-    icon: "/demo/feature_3.png",
-  },
-  {
-    title: "Community",
-    description: "Join a community, share stories, and inspire others.",
-    icon: "/demo/feature_2.png",
-  },
-  {
-    title: "Dashboard",
-    description: "Manage campaigns, view analytics, and engage with donors.",
-    icon: "/demo/feature_1.png",
-  },
-];
-
-import { Campaign, DonationsSummary, LocalUser, LocationStats } from "@/types";
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import {
+  Campaign,
+  DonationsSummary,
+  User,
+  LocationStats,
+  Proposal,
+  TokenStatus,
+  PaginatedData,
+  Feature,
+  TeamMember,
+  Country,
+  Disaster,
+} from "@/types";
 import { ApiResponse } from ".";
-import { DummyApi } from "./dummyApi";
+import {
+  DUMMYUSER,
+  DUMMYCAMPAIGNS,
+  DUMMYDONATIONSSUMMARY,
+  DUMMYLOCATIONSTATS,
+  DUMMYPROPOSALS,
+  DUMMYFEATURES,
+  DUMMYTEAMMEMBERS,
+  DUMMYDISASTERS,
+  DUMMYNGOS,
+  DUMMYAIDREQUESTS,
+} from "./temp";
 
-export async function me(): Promise<ApiResponse<{ user: LocalUser | null }>> {
-  return DummyApi.me();
+const randomDelay = () =>
+  new Promise(
+    (resolve) => setTimeout(resolve, Math.random() * 1500 + 500), // 0.5-2 second delay
+  );
+
+export async function me(): Promise<ApiResponse<User>> {
+  await randomDelay();
+  return {
+    result: DUMMYUSER,
+    error: null,
+  };
 }
 
 export async function login(logins: {
   email: string;
   password: string;
-}): Promise<ApiResponse<LocalUser>> {
-  return DummyApi.login(logins);
+}): Promise<ApiResponse<{ access: string; refresh: string }>> {
+  await randomDelay();
+  return {
+    result: { access: "dummyAccessToken", refresh: "dummyRefreshToken" },
+    error: null,
+  };
 }
 
 export async function signup(newUser: {
@@ -81,53 +56,197 @@ export async function signup(newUser: {
   firstname: string;
   lastname: string;
   role: string;
-}): Promise<ApiResponse<LocalUser>> {
-  return DummyApi.signup(newUser);
+}): Promise<ApiResponse<{ access: string; refresh: string }>> {
+  await randomDelay();
+  return {
+    result: { access: "dummyAccessToken", refresh: "dummyRefreshToken" },
+    error: null,
+  };
 }
 
 export async function resetPassword(
   token: string,
   password: string,
-): Promise<ApiResponse<LocalUser>> {
-  return DummyApi.resetPassword(token, password);
+): Promise<ApiResponse<User>> {
+  await randomDelay();
+  return {
+    result: DUMMYUSER,
+    error: null,
+  };
 }
 
 export async function forgotPassword(
   email: string,
 ): Promise<ApiResponse<string>> {
-  return DummyApi.forgotPassword(email);
-}
-
-export enum TokenStatus {
-  Expired = "Expired",
-  Invalid = "Invalid",
-  Active = "Active",
+  await randomDelay();
+  return {
+    result: "Password reset link sent to email",
+    error: null,
+  };
 }
 
 export async function validateResetToken(
   token: string,
 ): Promise<ApiResponse<{ status: TokenStatus }>> {
-  return DummyApi.validateResetToken(token);
+  await randomDelay();
+  return {
+    result: { status: TokenStatus.Active },
+    error: null,
+  };
 }
 
 export async function donationsSummary(): Promise<
   ApiResponse<DonationsSummary>
 > {
-  return DummyApi.donationsSummary();
+  await randomDelay();
+  return {
+    result: DUMMYDONATIONSSUMMARY,
+    error: null,
+  };
 }
 
 export async function monthlyStats(): Promise<ApiResponse<number[]>> {
-  return DummyApi.monthlyStats();
+  await randomDelay();
+  return {
+    result: [100, 200, 300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200],
+    error: null,
+  };
 }
 
 export async function locationStats(): Promise<ApiResponse<LocationStats[]>> {
-  return DummyApi.locationStats();
+  await randomDelay();
+  return {
+    result: DUMMYLOCATIONSTATS,
+    error: null,
+  };
+}
+
+export async function proposals(options?: {
+  page?: number;
+  limit?: number;
+  location?: string;
+  sort?: string;
+  filter?: string;
+}): Promise<ApiResponse<PaginatedData<Proposal>>> {
+  await randomDelay();
+  const data = DUMMYPROPOSALS;
+  if (options?.limit) {
+    while (data.length != options.limit) {
+      if (data.length > options.limit) {
+        data.pop();
+      } else {
+        data.push(data[Math.floor(Math.random() * data.length)]);
+      }
+    }
+  }
+  return {
+    result: {
+      data,
+      page: options?.page ?? 1,
+      limit: options?.limit ?? 6,
+      totalItems: 200,
+    },
+    error: null,
+  };
+}
+
+export async function latestProposals(): Promise<ApiResponse<Proposal[]>> {
+  await randomDelay();
+  return {
+    result: DUMMYPROPOSALS.slice(0, 3),
+    error: null,
+  };
+}
+
+export async function recommendedProposals(): Promise<ApiResponse<Proposal[]>> {
+  await randomDelay();
+  return {
+    result: DUMMYPROPOSALS.slice(0, 3),
+    error: null,
+  };
+}
+
+export async function proposal(id: string): Promise<ApiResponse<Proposal>> {
+  await randomDelay();
+  const result = DUMMYPROPOSALS.find((p) => p._id === id)!;
+  result.disaster =
+    DUMMYDISASTERS[Math.floor(Math.random() * DUMMYDISASTERS.length)];
+  result.ngo = DUMMYNGOS[Math.floor(Math.random() * DUMMYNGOS.length)];
+  result.aidRequests = DUMMYAIDREQUESTS;
+  return {
+    result,
+    error: null,
+  };
+}
+
+export async function disasters(options?: {
+  page?: number;
+  limit?: number;
+  location?: Country;
+  sort?: string;
+  filter?: string;
+}): Promise<ApiResponse<PaginatedData<Disaster>>> {
+  await randomDelay();
+  const data = DUMMYDISASTERS;
+  if (options?.limit) {
+    while (data.length != options.limit) {
+      if (data.length > options.limit) {
+        data.pop();
+      } else {
+        data.push(data[Math.floor(Math.random() * data.length)]);
+      }
+    }
+  }
+  return {
+    result: {
+      data,
+      page: options?.page ?? 1,
+      limit: options?.limit ?? 6,
+      totalItems: 200,
+    },
+    error: null,
+  };
 }
 
 export async function recommendedCampaigns(): Promise<ApiResponse<Campaign[]>> {
-  return DummyApi.recommendedCampaigns();
+  await randomDelay();
+  return {
+    result: DUMMYCAMPAIGNS.slice(0, 3),
+    error: null,
+  };
 }
 
 export async function latestCampaigns(): Promise<ApiResponse<Campaign[]>> {
-  return DummyApi.latestCampaigns();
+  await randomDelay();
+  return {
+    result: DUMMYCAMPAIGNS.slice(0, 5),
+    error: null,
+  };
+}
+
+export async function features(): Promise<ApiResponse<Feature[]>> {
+  await randomDelay();
+  return {
+    result: DUMMYFEATURES,
+    error: null,
+  };
+}
+
+export async function teamMembers(): Promise<ApiResponse<TeamMember[]>> {
+  await randomDelay();
+  return {
+    result: DUMMYTEAMMEMBERS,
+    error: null,
+  };
+}
+
+export async function disasterProposals({
+  disasterId,
+}: {
+  disasterId: string;
+}): Promise<ApiResponse<Proposal[]>> {
+  return {
+    result: DUMMYPROPOSALS,
+    error: null,
+  };
 }

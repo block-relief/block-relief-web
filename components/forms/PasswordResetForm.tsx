@@ -7,9 +7,10 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Lock, Loader2, Eye, EyeClosed } from "lucide-react";
 import Link from "next/link";
-import { validateResetToken, resetPassword, TokenStatus } from "@/api/auth";
+import { validateResetToken, resetPassword } from "@/api/requests";
 import { toast } from "react-toastify";
 import useApiQuery from "@/hooks/useApiQuery";
+import { TokenStatus } from "@/types";
 
 const validatePasswords = (password: string, confirmPassword: string) => {
   const errors: Record<string, string> = {};

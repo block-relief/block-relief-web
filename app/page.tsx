@@ -1,7 +1,6 @@
-import FeaturesSection from "@/components/sections/Features";
 import Footer from "@/components/sections/Footer";
 import Header from "@/components/sections/Header";
-import TeamSection from "@/components/sections/Team";
+import HomeSections from "@/components/sections/HomeSections";
 import { MoveRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -47,13 +46,7 @@ export default function Home() {
             />
           </div>
         </div>
-        {/* Features Section */}
-
-        <FeaturesSection />
-
-        {/* Team Section */}
-
-        <TeamSection />
+        <HomeSections />
       </main>
       <Footer />
     </div>

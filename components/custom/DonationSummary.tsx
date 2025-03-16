@@ -41,7 +41,7 @@ export default function DonationSummary() {
       value: new Intl.NumberFormat("en-US", {
         style: "currency",
         currency: "USD",
-      }).format(result.totalDonations),
+      }).format(result.amount),
     },
     { title: "Campaigns", icon: Flag, value: result.campaigns.toString() },
     {

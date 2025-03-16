@@ -1,8 +1,8 @@
 import DonationSummary from "@/components/custom/DonationSummary";
 import LocationStats from "@/components/custom/LocationStats";
 import MonthlyStats from "@/components/custom/MonthlyStats";
-import LatestCampaigns from "@/components/sections/LatestCampaigns";
-import RecommendedCampaigns from "@/components/sections/RecommendedCampaigns";
+import LatestProposals from "@/components/sections/LatestProposals";
+import RecommendedProposals from "@/components/sections/RecommendedProposals";
 
 export default function DashboardPage() {
   return (
@@ -12,8 +12,8 @@ export default function DashboardPage() {
         <MonthlyStats />
         <LocationStats />
       </div>
-      <RecommendedCampaigns />
-      <LatestCampaigns />
+      <RecommendedProposals />
+      <LatestProposals />
     </div>
   );
 }
