@@ -78,9 +78,8 @@ class ApiClient {
     }
   }
 
-  async setToken(tokens: { access: string; refresh: string }): Promise<void> {
-    window.localStorage.setItem("access", tokens.access);
-    window.localStorage.setItem("refresh", tokens.refresh);
+  async setToken(tokens: { token: string }): Promise<void> {
+    window.localStorage.setItem("access", tokens.token);
   }
 
   resetToken(): void {

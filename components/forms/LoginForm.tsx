@@ -56,10 +56,10 @@ export default function LoginForm() {
 
     setSigningIn(true);
     const response = await login(logins);
-    if (response.error || !response.result) {
-      toast.error(response.error?.message || "Login failed");
+    if (response.error || !response.success) {
+      toast.error(response.error || "Login failed");
     } else {
-      toast.success("Signed in successfully");
+      toast.success(response.success);
       router.push(getReturnTo() || "/");
     }
     setSigningIn(false);

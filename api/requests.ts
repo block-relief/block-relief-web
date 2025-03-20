@@ -2,6 +2,7 @@ import {
   Country,
   Disaster,
   DonationsSummary,
+  DonationTransaction,
   Feature,
   LocationStats,
   PaginatedData,
@@ -18,15 +19,12 @@ export async function me(): Promise<ApiResponse<User>> {
 export async function login(logins: {
   email: string;
   password: string;
-}): Promise<ApiResponse<{ access: string; refresh: string }>> {
-  const response = await Api.post<{ access: string; refresh: string }>(
-    "/auth/login",
-    logins,
-  );
+}): Promise<{ success: string | null; error?: string }> {
+  const response = await Api.post<{ token: string }>("/auth/login", logins);
   if (response.result) {
     Api.setToken(response.result);
   }
-  return response;
+  return { success: "logged in successfully", error: response.error?.message };
 }
 
 export async function signup(newUser: {
@@ -35,15 +33,12 @@ export async function signup(newUser: {
   firstname: string;
   lastname: string;
   role: string;
-}): Promise<ApiResponse<{ access: string; refresh: string }>> {
-  const response = await Api.post<{ access: string; refresh: string }>(
-    "/auth/signup",
-    newUser,
-  );
+}): Promise<{ success: string | null; error?: string }> {
+  const response = await Api.post<{ token: string }>("/auth/signup", newUser);
   if (response.result) {
     Api.setToken(response.result);
   }
-  return response;
+  return { success: "logged in successfully", error: response.error?.message };
 }
 
 export async function resetPassword(
@@ -114,6 +109,12 @@ export async function proposal(id: string): Promise<ApiResponse<Proposal>> {
   return Api.get(`/proposals/${id}`);
 }
 
+export async function disaster(
+  disasterId: string,
+): Promise<ApiResponse<Disaster>> {
+  return Api.get(`/disasters/${disasterId}`);
+}
+
 export async function disasters(options?: {
   page?: number;
   limit?: number;
@@ -138,4 +139,30 @@ export async function disasterProposals({
   disasterId: string;
 }): Promise<ApiResponse<Proposal[]>> {
   return Api.get(`/disasters/${disasterId}/proposals`);
+}
+
+// donations made by current user
+export async function currentDonations(options?: {
+  search?: string;
+  page?: number;
+  limit?: number;
+  location?: Country;
+  sort?: string;
+  filter?: string;
+}) {
+  return Api.get("/donor/donations", options);
+}
+
+export async function getTransactions(
+  userId: string,
+  options?: {
+    search?: string;
+    page?: number;
+    limit?: number;
+    location?: Country;
+    sort?: string;
+    filter?: string;
+  },
+): Promise<ApiResponse<PaginatedData<DonationTransaction>>> {
+  return Api.get(`/transaction/${userId}`, options);
 }

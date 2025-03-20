@@ -28,67 +28,67 @@ export default function AppSidebar() {
   const { user, isLoading } = useAuth();
   const pathname = usePathname();
 
-  const selectedMenu = pathname.split("/")[2] || null;
+  const selectedMenu = pathname.split("/")[2] || "";
 
   const getMenuItems = (roles: string[]) => {
     const res = [
-      { text: "Disasters", href: "/overview/", icon: AlertTriangle },
-      { text: "Dashboard", href: "/overview/dashboard", icon: Home },
-      { text: "Donate", href: "/overview/donate", icon: HandCoins },
+      { text: "Disasters", pages: ["", "disasters"], Icon: AlertTriangle },
+      { text: "Dashboard", pages: ["dashboard"], Icon: Home },
+      { text: "Donate", pages: ["donate"], Icon: HandCoins },
     ];
 
     if (roles.includes("donor")) {
       res.push({
         text: "Impact Tracking",
-        href: "/overview/impact",
-        icon: BarChart,
+        pages: ["impact"],
+        Icon: BarChart,
       });
       res.push({
-        text: "Donation History",
-        href: "/overview/donations",
-        icon: History,
+        text: "My Donations",
+        pages: ["transactions"],
+        Icon: History,
       });
     }
 
     if (roles.includes("NGO")) {
       res.push({
         text: "Funds Management",
-        href: "/overview/funds",
-        icon: Wallet,
+        pages: ["funds"],
+        Icon: Wallet,
       });
       res.push({
         text: "Beneficiary Management",
-        href: "/overview/beneficiaries",
-        icon: Users,
+        pages: ["beneficiaries"],
+        Icon: Users,
       });
       res.push({
-        text: "Transaction History",
-        href: "/overview/transactions",
-        icon: History,
+        text: "Donations",
+        pages: ["donations"],
+        Icon: History,
       });
     }
 
     if (roles.includes("admin")) {
       res.push({
-        text: "User Management",
-        href: "/overview/users",
-        icon: UserCog,
+        text: "Users",
+        pages: ["users"],
+        Icon: UserCog,
       });
       res.push({
-        text: "Campaign Management",
-        href: "/overview/campaigns",
-        icon: Book,
+        text: "Proposals",
+        pages: ["proposals"],
+        Icon: Book,
       });
       res.push({
-        text: "Transaction History",
-        href: "/overview/transactions",
-        icon: History,
+        text: "Donations",
+        pages: ["donations"],
+        Icon: History,
       });
     }
 
     if (roles.includes("victim")) {
-      res.push({ text: "Profile", href: "/overview/profile", icon: User });
-      res.push({ text: "Requests", href: "/overview/requests", icon: Inbox });
+      res.push({ text: "Profile", pages: ["profile"], Icon: User });
+      res.push({ text: "Requests", pages: ["requests"], Icon: Inbox });
     }
 
     return res;
@@ -108,18 +108,18 @@ export default function AppSidebar() {
                       <Skeleton className="h-8 w-full" />
                     </div>
                   ))
-                : menuItems.map((item) => (
-                    <Link key={item.text} href={item.href}>
+                : menuItems.map(({ text, pages, Icon }) => (
+                    <Link key={text} href={`/overview/${pages[0]}`}>
                       <SidebarMenuItem
                         className={`flex items-center gap-3 h-12 px-8 ${
-                          selectedMenu === (item.href.split("/")[2] || null)
+                          pages.includes(selectedMenu)
                             ? "bg-secondary border-r-4 border-accent-2"
                             : ""
                         }`}
                       >
-                        <item.icon className="size-8" />
+                        <Icon className="size-8" />
                         <span className="font-plusJakartaSans font-normal text-base leading-[16px]">
-                          {item.text}
+                          {text}
                         </span>
                       </SidebarMenuItem>
                     </Link>

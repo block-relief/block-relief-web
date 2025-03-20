@@ -189,3 +189,20 @@ export type Feature = {
   description: string;
   icon: string;
 };
+
+export type DonationTransaction = {
+  donor: User;
+  proposal: Proposal;
+  disaster: Disaster;
+  amount: number;
+  currency: "USD" | "EUR" | "GHS" | "Crypto";
+  ngo: NGO;
+  beneficiary: User;
+  status: "Pending" | "Completed" | "Failed" | "Reversed";
+  transactionHash?: string;
+  reference?: string;
+  paymentProvider: "Paystack" | "MockCrypto";
+  paymentStatus: "Initiated" | "Pending" | "Completed" | "Failed";
+  createdAt: Date;
+  updatedAt?: Date;
+};

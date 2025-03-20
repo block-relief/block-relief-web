@@ -104,10 +104,10 @@ export default function SignupForm() {
     setSigningUp(true);
 
     const response = await signup(newUser);
-    if (response.error || !response.result) {
-      toast.error(response.error?.message || "Signup failed");
+    if (response.error || !response.success) {
+      toast.error(response.error || "Login failed");
     } else {
-      toast.success("Signed up successfully");
+      toast.success(response.success);
       router.push(getReturnTo() || "/");
     }
     setSigningUp(false);

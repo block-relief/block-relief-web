@@ -10,6 +10,7 @@ import { useQueryState, parseAsString } from "nuqs";
 import { useAuth } from "@/hooks/AuthContext";
 import Header from "./Header";
 import { Search } from "lucide-react";
+import { useRef } from "react";
 
 export default function OverviewHeader() {
   const { user, isLoading } = useAuth();
@@ -17,10 +18,11 @@ export default function OverviewHeader() {
     "search",
     parseAsString.withDefault(""),
   );
+  const searchRef = useRef<HTMLInputElement>(null);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setSearch(e.currentTarget.value);
+  const handleKeyDown = (key: string) => {
+    if (key === "Enter") {
+      setSearch(searchRef.current?.value || "");
     }
   };
 
@@ -48,15 +50,19 @@ export default function OverviewHeader() {
         </Link>
 
         <div className="relative h-[50px] hidden sm:block">
-          <div className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground">
-            <Search className="size-[30px]" />
-          </div>
           <Input
             type="text"
+            ref={searchRef}
             placeholder="Search campaigns, NGOs..."
-            className="pl-14 bg-emerald-50 w-64 md:w-72 h-full focus-visible:ring-0 placeholder:text-[14px] placeholder:leading-[14px] placeholder:font-plusJakartaSans"
-            onKeyDown={handleKeyDown}
+            className="pr-14 bg-primary text-primary-foreground w-64 md:w-72 h-full focus-visible:ring-0 placeholder:text-[14px] placeholder:leading-[14px] placeholder:font-plusJakartaSans"
+            onKeyDown={(e) => handleKeyDown(e.key)}
           />
+          <div
+            className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground cursor-pointer"
+            onClick={() => handleKeyDown("Enter")}
+          >
+            <Search className="size-[30px]" />
+          </div>
         </div>
       </div>
       {/* Right Section - Navigation Icons */}

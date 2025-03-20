@@ -11,6 +11,7 @@ import {
   TeamMember,
   Country,
   Disaster,
+  DonationTransaction,
 } from "@/types";
 import { ApiResponse } from ".";
 import {
@@ -24,6 +25,7 @@ import {
   DUMMYDISASTERS,
   DUMMYNGOS,
   DUMMYAIDREQUESTS,
+  DUMMYDONATIONS,
 } from "./temp";
 
 const randomDelay = () =>
@@ -42,11 +44,10 @@ export async function me(): Promise<ApiResponse<User>> {
 export async function login(logins: {
   email: string;
   password: string;
-}): Promise<ApiResponse<{ access: string; refresh: string }>> {
+}): Promise<{ success: string | null; error?: string }> {
   await randomDelay();
   return {
-    result: { access: "dummyAccessToken", refresh: "dummyRefreshToken" },
-    error: null,
+    success: "logged in successfully",
   };
 }
 
@@ -56,11 +57,10 @@ export async function signup(newUser: {
   firstname: string;
   lastname: string;
   role: string;
-}): Promise<ApiResponse<{ access: string; refresh: string }>> {
+}): Promise<{ success: string | null; error?: string }> {
   await randomDelay();
   return {
-    result: { access: "dummyAccessToken", refresh: "dummyRefreshToken" },
-    error: null,
+    success: "logged in successfully",
   };
 }
 
@@ -70,7 +70,7 @@ export async function resetPassword(
 ): Promise<ApiResponse<User>> {
   await randomDelay();
   return {
-    result: DUMMYUSER,
+    result: { ...DUMMYUSER },
     error: null,
   };
 }
@@ -100,7 +100,7 @@ export async function donationsSummary(): Promise<
 > {
   await randomDelay();
   return {
-    result: DUMMYDONATIONSSUMMARY,
+    result: { ...DUMMYDONATIONSSUMMARY },
     error: null,
   };
 }
@@ -116,7 +116,7 @@ export async function monthlyStats(): Promise<ApiResponse<number[]>> {
 export async function locationStats(): Promise<ApiResponse<LocationStats[]>> {
   await randomDelay();
   return {
-    result: DUMMYLOCATIONSTATS,
+    result: [...DUMMYLOCATIONSTATS],
     error: null,
   };
 }
@@ -129,7 +129,7 @@ export async function proposals(options?: {
   filter?: string;
 }): Promise<ApiResponse<PaginatedData<Proposal>>> {
   await randomDelay();
-  const data = DUMMYPROPOSALS;
+  const data = [...DUMMYPROPOSALS];
   if (options?.limit) {
     while (data.length != options.limit) {
       if (data.length > options.limit) {
@@ -152,27 +152,40 @@ export async function proposals(options?: {
 
 export async function latestProposals(): Promise<ApiResponse<Proposal[]>> {
   await randomDelay();
+  const result = DUMMYPROPOSALS.slice(0, 3);
   return {
-    result: DUMMYPROPOSALS.slice(0, 3),
+    result,
     error: null,
   };
 }
 
 export async function recommendedProposals(): Promise<ApiResponse<Proposal[]>> {
   await randomDelay();
+  const result = DUMMYPROPOSALS.slice(0, 3);
   return {
-    result: DUMMYPROPOSALS.slice(0, 3),
+    result,
     error: null,
   };
 }
 
 export async function proposal(id: string): Promise<ApiResponse<Proposal>> {
   await randomDelay();
-  const result = DUMMYPROPOSALS.find((p) => p._id === id)!;
+  const result = { ...DUMMYPROPOSALS.find((p) => p._id === id)! };
   result.disaster =
     DUMMYDISASTERS[Math.floor(Math.random() * DUMMYDISASTERS.length)];
   result.ngo = DUMMYNGOS[Math.floor(Math.random() * DUMMYNGOS.length)];
   result.aidRequests = DUMMYAIDREQUESTS;
+  return {
+    result,
+    error: null,
+  };
+}
+
+export async function disaster(
+  disasterId: string,
+): Promise<ApiResponse<Disaster>> {
+  await randomDelay();
+  const result = { ...DUMMYDISASTERS.find((p) => p._id === disasterId)! };
   return {
     result,
     error: null,
@@ -187,7 +200,7 @@ export async function disasters(options?: {
   filter?: string;
 }): Promise<ApiResponse<PaginatedData<Disaster>>> {
   await randomDelay();
-  const data = DUMMYDISASTERS;
+  const data = [...DUMMYDISASTERS];
   if (options?.limit) {
     while (data.length != options.limit) {
       if (data.length > options.limit) {
@@ -208,34 +221,20 @@ export async function disasters(options?: {
   };
 }
 
-export async function recommendedCampaigns(): Promise<ApiResponse<Campaign[]>> {
-  await randomDelay();
-  return {
-    result: DUMMYCAMPAIGNS.slice(0, 3),
-    error: null,
-  };
-}
-
-export async function latestCampaigns(): Promise<ApiResponse<Campaign[]>> {
-  await randomDelay();
-  return {
-    result: DUMMYCAMPAIGNS.slice(0, 5),
-    error: null,
-  };
-}
-
 export async function features(): Promise<ApiResponse<Feature[]>> {
   await randomDelay();
+  const result = [...DUMMYFEATURES];
   return {
-    result: DUMMYFEATURES,
+    result,
     error: null,
   };
 }
 
 export async function teamMembers(): Promise<ApiResponse<TeamMember[]>> {
   await randomDelay();
+  const result = [...DUMMYTEAMMEMBERS];
   return {
-    result: DUMMYTEAMMEMBERS,
+    result,
     error: null,
   };
 }
@@ -245,8 +244,77 @@ export async function disasterProposals({
 }: {
   disasterId: string;
 }): Promise<ApiResponse<Proposal[]>> {
+  const result = [...DUMMYPROPOSALS];
   return {
-    result: DUMMYPROPOSALS,
+    result,
+    error: null,
+  };
+}
+
+export async function getDonations(
+  ngoId: string,
+  options?: {
+    search?: string;
+    page?: number;
+    limit?: number;
+    location?: Country;
+    sort?: string;
+    filter?: string;
+  },
+) {
+  await randomDelay();
+  const data = [...DUMMYDONATIONS];
+  if (options?.limit) {
+    while (data.length != options.limit) {
+      if (data.length > options.limit) {
+        data.pop();
+      } else {
+        data.push(data[Math.floor(Math.random() * data.length)]);
+      }
+    }
+  }
+
+  return {
+    result: {
+      data,
+      page: 1,
+      limit: options?.limit ?? data.length,
+      totalItems: 67,
+    },
+    error: null,
+  };
+}
+
+export async function getTransactions(
+  userId: string,
+  options?: {
+    search?: string;
+    page?: number;
+    limit?: number;
+    location?: Country;
+    sort?: string;
+    filter?: string;
+  },
+): Promise<ApiResponse<PaginatedData<DonationTransaction>>> {
+  await randomDelay();
+  const data = [...DUMMYDONATIONS];
+  if (options?.limit) {
+    while (data.length != options.limit) {
+      if (data.length > options.limit) {
+        data.pop();
+      } else {
+        data.push(data[Math.floor(Math.random() * data.length)]);
+      }
+    }
+  }
+
+  return {
+    result: {
+      data,
+      page: 1,
+      limit: options?.limit ?? data.length,
+      totalItems: 67,
+    },
     error: null,
   };
 }

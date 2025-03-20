@@ -79,7 +79,7 @@ const ProposalsTable = () => {
       {/* Filters */}
       <div className="w-auto flex flex-wrap justify-start gap-4 px-4">
         <div className="flex gap-2 items-center bg-primary rounded-xl shadow-md">
-          {["All", "Goal Achieved", "Goal Failed", "Ongoing"].map((status) => (
+          {Object.values(ProposalFilters).map((status) => (
             <div
               key={status}
               onClick={() => setFilter(status as typeof filter)}

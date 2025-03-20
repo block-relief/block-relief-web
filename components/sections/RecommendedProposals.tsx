@@ -19,7 +19,7 @@ export default function RecommendedProposals() {
     return (
       <div className="w-full h-[536px]">
         <DashboardSectionHeader
-          title="Recommended Campaigns"
+          title="Recommended Proposals"
           pageUrl="/campaigns/recommended"
         />
         <Skeleton className="w-[80%] h-24 mt-4" />
@@ -31,7 +31,7 @@ export default function RecommendedProposals() {
     return (
       <div className="w-full h-[536px]">
         <DashboardSectionHeader
-          title="Recommended Campaigns"
+          title="Recommended Proposals"
           pageUrl="/campaigns/recommended"
         />
         <div className="w-full h-240 flex items-center justify-center">
@@ -46,7 +46,7 @@ export default function RecommendedProposals() {
   return (
     <div className="flex flex-col gap-4 w-full h-auto">
       <DashboardSectionHeader
-        title="Recommended Campaigns"
+        title="Recommended Proposals"
         pageUrl="/campaigns/recommended"
       />
       <div className="w-full h-full grid lg:grid-cols-2 2xl:grid-cols-3 gap-8">
