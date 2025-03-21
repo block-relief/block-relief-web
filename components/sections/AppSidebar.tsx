@@ -50,7 +50,7 @@ export default function AppSidebar() {
       });
     }
 
-    if (roles.includes("NGO")) {
+    if (roles.includes("ngo")) {
       res.push({
         text: "Funds Management",
         pages: ["funds"],

@@ -27,16 +27,18 @@ import {
   DUMMYAIDREQUESTS,
   DUMMYDONATIONS,
 } from "./temp";
+import { Neucha } from "next/font/google";
 
 const randomDelay = () =>
   new Promise(
     (resolve) => setTimeout(resolve, Math.random() * 1500 + 500), // 0.5-2 second delay
   );
 
+let loggedIn = false;
 export async function me(): Promise<ApiResponse<User>> {
   await randomDelay();
   return {
-    result: DUMMYUSER,
+    result: loggedIn ? DUMMYUSER : null,
     error: null,
   };
 }
@@ -45,6 +47,7 @@ export async function login(logins: {
   email: string;
   password: string;
 }): Promise<{ success: string | null; error?: string }> {
+  loggedIn = true;
   await randomDelay();
   return {
     success: "logged in successfully",
@@ -58,10 +61,9 @@ export async function signup(newUser: {
   lastname: string;
   role: string;
 }): Promise<{ success: string | null; error?: string }> {
+  DUMMYUSER.roles = [newUser.role]
   await randomDelay();
-  return {
-    success: "logged in successfully",
-  };
+  return login( {email: newUser.email, password: newUser.password} )
 }
 
 export async function resetPassword(

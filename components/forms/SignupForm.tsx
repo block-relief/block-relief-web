@@ -18,13 +18,18 @@ import {
 import { emailSchema, passwordSchema, nameSchema } from "@/lib/schemas/inputs";
 
 const Roles = [
-  { title: "Donor", info: "I want to donate to a cause" },
+  { title: "Donor",
+    value: "donor",
+    info: "I want to donate to a cause" },
   {
     title: "NGO/Relief Provider",
+    value: "ngo",
     info: "I want to provide relief to people in need",
   },
-  { title: "Victim", info: "I need help" },
-  { title: "Auditor", info: "I want to audit the use of funds" },
+  { title: "Victim",
+    value: "victim",
+    info: "I need help" },
+  { title: "Auditor", value: "admin", info: "I want to audit the use of funds" },
 ];
 
 const validateInputs = ({
@@ -64,7 +69,7 @@ const validateInputs = ({
 
   if (!role) {
     errors.role = "Please select a role";
-  } else if (!Roles.some((r) => r.title === role)) {
+  } else if (!Roles.some((r) => r.value === role)) {
     errors.role = "Invalid role selected";
   }
 
@@ -90,7 +95,7 @@ export default function SignupForm() {
       password: passwordRef.current?.value || "",
       firstname: firstnameRef.current?.value || "",
       lastname: lastnameRef.current?.value || "",
-      role: selectedRoleIdx !== null ? Roles[selectedRoleIdx].title : "",
+      role: selectedRoleIdx !== null ? Roles[selectedRoleIdx].value : "",
     };
 
     const errors = validateInputs(newUser);
