@@ -142,33 +142,39 @@ export const DUMMYCAMPAIGNS: Campaign[] = [
 export const DUMMYTEAMMEMBERS: TeamMember[] = [
   {
     id: "ljsdkjdljada",
-    name: "Tom Hanks",
-    role: "Front-end Developer",
+    name: "Stephen Azongo",
+    role: "Back-end Developer",
     photoUrl: "/demo/profile_1.png",
   },
   {
     id: "sljdsldjdfoidsk",
-    name: "Tom Cruise",
-    role: "Back-end Developer",
+    name: "Isaac Dzikum",
+    role: "Full Stack Developer",
     photoUrl: "/demo/profile_2.png",
   },
   {
     id: "aljdlsjdoiwe",
-    name: "Tom Hardy",
-    role: "Designer",
+    name: "Solomon Dzah",
+    role: "Front-end Developer",
     photoUrl: "/demo/profile_3.png",
   },
   {
     id: "skjdlsjsfljdsf",
-    name: "Tom Holland",
-    role: "Tester",
+    name: "Endurance",
+    role: "Designer",
     photoUrl: "/demo/profile_2.png",
   },
   {
     id: "skdsljdsjdlsdlj",
-    name: "Tom Felton",
+    name: "Precious",
     role: "Manager",
     photoUrl: "/demo/profile_1.png",
+  },
+  {
+    id: "skdsljdsjdlsdlg",
+    name: "Jawad ",
+    role: "Security Analyst",
+    photoUrl: "/demo/profile_3.png",
   },
 ];
 
