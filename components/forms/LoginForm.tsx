@@ -23,7 +23,7 @@ const validateInputs = ({
 
   const emailResult = emailSchema.safeParse({ email });
   if (!emailResult.success) {
-    errors.email = emailResult.error.message;
+    errors.email = emailResult.error.errors[0].message;
   }
 
   if (password.length < 8) {
