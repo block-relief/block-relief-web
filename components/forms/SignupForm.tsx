@@ -18,18 +18,18 @@ import {
 import { emailSchema, passwordSchema, nameSchema } from "@/lib/schemas/inputs";
 
 const Roles = [
-  { title: "Donor",
-    value: "donor",
-    info: "I want to donate to a cause" },
+  { title: "Donor", value: "donor", info: "I want to donate to a cause" },
   {
     title: "NGO/Relief Provider",
     value: "ngo",
     info: "I want to provide relief to people in need",
   },
-  { title: "Victim",
-    value: "victim",
-    info: "I need help" },
-  { title: "Auditor", value: "admin", info: "I want to audit the use of funds" },
+  { title: "Victim", value: "victim", info: "I need help" },
+  {
+    title: "Auditor",
+    value: "admin",
+    info: "I want to audit the use of funds",
+  },
 ];
 
 const validateInputs = ({

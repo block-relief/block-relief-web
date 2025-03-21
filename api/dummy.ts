@@ -61,9 +61,9 @@ export async function signup(newUser: {
   lastname: string;
   role: string;
 }): Promise<{ success: string | null; error?: string }> {
-  DUMMYUSER.roles = [newUser.role]
+  DUMMYUSER.roles = [newUser.role];
   await randomDelay();
-  return login( {email: newUser.email, password: newUser.password} )
+  return login({ email: newUser.email, password: newUser.password });
 }
 
 export async function resetPassword(
